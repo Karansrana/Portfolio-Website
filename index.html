@@ -353,22 +353,6 @@
       box-shadow: 0 20px 45px -15px rgba(255, 71, 105, 0.12);
     }
 
-    /* Terminal CLI Blinking Cursor */
-    .cli-cursor {
-      display: inline-block;
-      width: 7px;
-      height: 13px;
-      background-color: #10B981;
-      vertical-align: middle;
-      animation: blink 1s step-start infinite;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
     @keyframes garageProgressFill {
       from {
         transform: scaleX(0);
@@ -727,26 +711,59 @@
       <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
           <div
-            class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
-            <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
-              <div class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#27C93F]"></span>
-              </div>
-              <span class="text-[10px] font-mono text-zinc-500">main.py</span>
-            </div>
-            <div class="p-5 font-mono text-[11px] sm:text-xs leading-relaxed text-zinc-300 space-y-1.5">
-              <p><span class="text-emerald-400">~/rps-engine</span> ./init_decision_engine.py</p>
-              <p class="text-zinc-400">[OK] State machine initialized</p>
-              <p class="text-zinc-400">[OK] Input stream: O(1) decision heuristic</p>
-              <p class="text-[#FF5E7E] pt-1">Evaluating state transition matrix...</p>
-              <p class="text-zinc-400">> Move: Dynamic Seed Verification</p>
-              <p class="text-emerald-400 flex items-center gap-1 pt-1">
-                <span>System ready</span>
-                <span class="cli-cursor"></span>
-              </p>
-            </div>
+            class="project-preview-content bg-[#080710] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+            <svg class="block w-full" viewBox="0 0 560 280" role="img" aria-labelledby="rps-art-title rps-art-description">
+              <title id="rps-art-title">Rock-paper-scissors decision loop</title>
+              <desc id="rps-art-description">A glowing pink path shows rock defeating scissors in a three-move decision loop.</desc>
+              <defs>
+                <pattern id="rps-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <path d="M28 0H0V28" fill="none" stroke="#fff" stroke-opacity=".035" />
+                </pattern>
+                <linearGradient id="rps-path" x1="0" y1="1" x2="1" y2="0">
+                  <stop stop-color="#FF4769" />
+                  <stop offset="1" stop-color="#B66BFF" />
+                </linearGradient>
+                <filter id="rps-glow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="560" height="280" rx="12" fill="#0B0914" />
+              <rect width="560" height="280" rx="12" fill="url(#rps-grid)" />
+              <text x="30" y="34" fill="#A1A1AA" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">DECISION LOOP</text>
+              <circle cx="490" cy="30" r="4" fill="#10B981" />
+              <text x="502" y="34" fill="#10B981" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">READY</text>
+
+              <path d="M158 137C180 91 207 75 239 70" fill="none" stroke="url(#rps-path)" stroke-width="3" filter="url(#rps-glow)" />
+              <path d="M319 70C351 75 379 92 401 137" fill="none" stroke="#8B5CF6" stroke-opacity=".42" stroke-width="2" />
+              <path d="M401 171C340 231 220 231 159 171" fill="none" stroke="#8B5CF6" stroke-opacity=".42" stroke-width="2" />
+              <path d="m231 68 10-7-1 12" fill="#FF8AA0" />
+              <path d="m156 180-2-12 10 6" fill="#8B5CF6" fill-opacity=".7" />
+              <path d="m404 132-3 12-8-8" fill="#8B5CF6" fill-opacity=".7" />
+
+              <circle cx="135" cy="155" r="34" fill="#17111E" stroke="#FF5E7E" stroke-opacity=".8" />
+              <path d="m118 161 7-14 10-6 12 7 5 13-8 8h-18z" fill="#FF8AA0" fill-opacity=".9" />
+              <path d="m125 147 8 4m8-1 6 7" stroke="#FFE4EA" stroke-opacity=".65" stroke-width="2" stroke-linecap="round" />
+              <text x="135" y="213" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700" text-anchor="middle">ROCK</text>
+
+              <circle cx="280" cy="66" r="34" fill="#17111E" stroke="#8B5CF6" stroke-opacity=".65" />
+              <circle cx="269" cy="57" r="6" fill="none" stroke="#D8B4FE" stroke-width="3" />
+              <circle cx="291" cy="57" r="6" fill="none" stroke="#D8B4FE" stroke-width="3" />
+              <path d="m273 61 18 19m-22-19-9 19" fill="none" stroke="#D8B4FE" stroke-linecap="round" stroke-width="3" />
+              <text x="280" y="123" fill="#D4D4D8" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700" text-anchor="middle">SCISSORS</text>
+
+              <circle cx="425" cy="155" r="34" fill="#17111E" stroke="#8B5CF6" stroke-opacity=".65" />
+              <path d="M414 140h17l8 8v23h-25z" fill="none" stroke="#D8B4FE" stroke-linejoin="round" stroke-width="2.5" />
+              <path d="M431 140v9h8m-20 7h14m-14 6h14" stroke="#D8B4FE" stroke-linecap="round" stroke-width="2" />
+              <text x="425" y="213" fill="#D4D4D8" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700" text-anchor="middle">PAPER</text>
+
+              <rect x="211" y="238" width="138" height="24" rx="12" fill="#FF4769" fill-opacity=".12" stroke="#FF5E7E" stroke-opacity=".3" />
+              <circle cx="226" cy="250" r="3" fill="#FF5E7E" />
+              <text x="238" y="254" fill="#FF8AA0" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">ROCK WINS</text>
+            </svg>
           </div>
         </div>
 
@@ -778,27 +795,52 @@
       <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
           <div
-            class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
-            <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
-              <div class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#27C93F]"></span>
-              </div>
-              <span class="text-[10px] font-mono text-zinc-500">calculator.cpp</span>
-            </div>
-            <div class="p-5 font-mono text-[11px] sm:text-xs leading-relaxed text-zinc-300 space-y-1.5">
-              <p><span class="text-emerald-400">~/precision-calc</span> ./calculator</p>
-              <p class="text-zinc-400">[OK] Arithmetic parser initialized</p>
-              <p class="text-zinc-400">[OK] Operator modules loaded</p>
-              <p class="pt-1"><span class="text-[#FF5E7E]">calc</span> <span class="text-zinc-100">&gt;</span> 1875 * 24
-              </p>
-              <p class="text-zinc-400">Parsing expression...</p>
-              <p class="flex items-center gap-1 pt-1 text-emerald-400">
-                <span>Result: 45000</span>
-                <span class="cli-cursor"></span>
-              </p>
-            </div>
+            class="project-preview-content bg-[#080710] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+            <svg class="block w-full" viewBox="0 0 560 280" role="img" aria-labelledby="calc-art-title calc-art-description">
+              <title id="calc-art-title">Precision calculator result</title>
+              <desc id="calc-art-description">The expression 1875 times 24 resolves to 45,000.</desc>
+              <defs>
+                <pattern id="calc-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <path d="M28 0H0V28" fill="none" stroke="#fff" stroke-opacity=".035" />
+                </pattern>
+                <linearGradient id="calc-result" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#FF8AA0" />
+                  <stop offset="1" stop-color="#C084FC" />
+                </linearGradient>
+                <filter id="calc-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="10" />
+                </filter>
+              </defs>
+              <rect width="560" height="280" rx="12" fill="#0B0914" />
+              <rect width="560" height="280" rx="12" fill="url(#calc-grid)" />
+              <text x="30" y="34" fill="#A1A1AA" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">PRECISION COMPUTE</text>
+              <text x="530" y="34" fill="#8B5CF6" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" text-anchor="end">C++ / CORE</text>
+
+              <path d="M30 58h500" stroke="#fff" stroke-opacity=".08" />
+              <text x="50" y="111" fill="#71717A" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">INPUT</text>
+              <text x="50" y="168" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="44" font-weight="600" letter-spacing="-2">1875</text>
+              <text x="192" y="166" fill="#FF5E7E" font-family="Plus Jakarta Sans, sans-serif" font-size="34" font-weight="500">×</text>
+              <text x="239" y="168" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="44" font-weight="600" letter-spacing="-2">24</text>
+              <path d="M50 190h230" stroke="#FF5E7E" stroke-opacity=".5" stroke-width="2" />
+              <path d="M50 190h110" stroke="#FF5E7E" stroke-width="2" />
+
+              <circle cx="309" cy="146" r="23" fill="#FF4769" fill-opacity=".18" filter="url(#calc-glow)" />
+              <circle cx="309" cy="146" r="18" fill="#17111E" stroke="#FF5E7E" stroke-opacity=".4" />
+              <path d="M302 146h14m-7-7v14" stroke="#FF8AA0" stroke-width="2" stroke-linecap="round" />
+
+              <text x="352" y="111" fill="#71717A" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">RESULT</text>
+              <text x="352" y="169" fill="url(#calc-result)" font-family="Plus Jakarta Sans, sans-serif" font-size="43" font-weight="800" letter-spacing="-2">45,000</text>
+              <text x="352" y="194" fill="#10B981" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">✓ EXACT</text>
+
+              <path d="M30 220h500" stroke="#fff" stroke-opacity=".08" />
+              <text x="30" y="250" fill="#52525B" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">MODULAR OPERATORS</text>
+              <rect x="385" y="233" width="38" height="25" rx="7" fill="#17111E" stroke="#fff" stroke-opacity=".1" />
+              <text x="404" y="250" fill="#A78BFA" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">÷</text>
+              <rect x="431" y="233" width="38" height="25" rx="7" fill="#17111E" stroke="#fff" stroke-opacity=".1" />
+              <text x="450" y="250" fill="#A78BFA" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">×</text>
+              <rect x="477" y="233" width="38" height="25" rx="7" fill="#FF4769" fill-opacity=".14" stroke="#FF5E7E" stroke-opacity=".4" />
+              <text x="496" y="250" fill="#FF8AA0" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">+</text>
+            </svg>
           </div>
         </div>
 
