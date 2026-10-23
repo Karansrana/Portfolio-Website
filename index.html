@@ -414,7 +414,9 @@
     }
 
     @keyframes nowPlayingWave {
-      0%, 100% {
+
+      0%,
+      100% {
         height: 5px;
         opacity: 0.55;
       }
@@ -515,6 +517,38 @@
       opacity: 1;
     }
 
+    .connect-nav-link.is-active {
+      animation: connectNavGlow 1.8s ease-in-out infinite;
+    }
+
+    .connect-nav-link.is-active>span {
+      animation: connectNavPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes connectNavGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+      }
+
+      50% {
+        box-shadow: 0 0 32px rgba(16, 185, 129, 0.85), 0 0 50px rgba(16, 185, 129, 0.3);
+      }
+    }
+
+    @keyframes connectNavPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.35);
+      }
+    }
+
     .project-preview {
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
     }
@@ -532,27 +566,27 @@
       transform: scale(1.035);
     }
 
-    .space-y-24 > .reveal-on-scroll:nth-child(1) {
+    .space-y-24>.reveal-on-scroll:nth-child(1) {
       transition-delay: 0.08s;
     }
 
-    .space-y-24 > .reveal-on-scroll:nth-child(2) {
+    .space-y-24>.reveal-on-scroll:nth-child(2) {
       transition-delay: 0.2s;
     }
 
-    .grid > .reveal-on-scroll:nth-child(1) {
+    .grid>.reveal-on-scroll:nth-child(1) {
       transition-delay: 0.08s;
     }
 
-    .grid > .reveal-on-scroll:nth-child(2) {
+    .grid>.reveal-on-scroll:nth-child(2) {
       transition-delay: 0.16s;
     }
 
-    .grid > .reveal-on-scroll:nth-child(3) {
+    .grid>.reveal-on-scroll:nth-child(3) {
       transition-delay: 0.24s;
     }
 
-    .grid > .reveal-on-scroll:nth-child(4) {
+    .grid>.reveal-on-scroll:nth-child(4) {
       transition-delay: 0.32s;
     }
 
@@ -589,8 +623,11 @@
 
       .project-preview,
       .project-preview-content,
-      .section-nav-link::after {
+      .section-nav-link::after,
+      .connect-nav-link.is-active,
+      .connect-nav-link.is-active>span {
         transition: none;
+        animation: none;
       }
 
       .project-preview:hover,
@@ -633,14 +670,14 @@
   <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
     <nav
       class="flex items-center gap-1 rounded-full border border-white/10 bg-[#0B0914]/75 p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-      <a href="#work"
-        data-section-link
-        class="rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Projects</a>
-      <a href="#about"
-        data-section-link
-        class="rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Identity</a>
-      <a href="#contact"
-        class="magnetic-btn ml-1 flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[11px] font-bold text-black shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all hover:bg-[#34D399] hover:shadow-[0_0_28px_rgba(16,185,129,0.65)] active:scale-95">
+      <a href="#top" aria-label="Back to top"
+        class="ml-0.5 flex h-9 w-9 items-center justify-center rounded-full border border-[#FF5E7E]/25 bg-gradient-to-br from-[#FF5E7E]/20 via-[#8B5CF6]/15 to-transparent font-serif text-sm font-bold tracking-tight text-[#F4F1EA] shadow-[inset_0_0_12px_rgba(255,94,126,0.12)] transition-all hover:border-[#FF5E7E]/50 hover:shadow-[0_0_18px_rgba(255,71,105,0.25)]">KS</a>
+      <a href="#work" data-section-link
+        class="section-nav-link rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Projects</a>
+      <a href="#about" data-section-link
+        class="section-nav-link rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Identity</a>
+      <a href="#contact" data-section-link
+        class="connect-nav-link magnetic-btn ml-1 flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[11px] font-bold text-black shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all hover:bg-[#34D399] hover:shadow-[0_0_28px_rgba(16,185,129,0.65)] active:scale-95">
         <span class="h-1.5 w-1.5 rounded-full bg-black shadow-[0_0_8px_2px_rgba(16,185,129,0.9)]"></span>
         Connect with me
       </a>
@@ -648,9 +685,10 @@
   </header>
 
   <!-- 1. HERO SECTION -->
-  <section class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 select-none">
+  <section id="top" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 select-none">
     <div class="text-center max-w-5xl mx-auto mt-6">
-      <p class="hero-intro mb-5 inline-block rounded-full border border-[#FF5E7E]/40 bg-[#0B0914]/75 px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-[#FF8AA0] shadow-[0_0_20px_rgba(11,9,20,0.7)] backdrop-blur-md">
+      <p
+        class="hero-intro mb-5 inline-block rounded-full border border-[#FF5E7E]/40 bg-[#0B0914]/75 px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-[#FF8AA0] shadow-[0_0_20px_rgba(11,9,20,0.7)] backdrop-blur-md">
         Karan Singh Rana
       </p>
       <h1 class="hero-intro text-[3.25rem] sm:text-7xl md:text-[5.75rem] leading-[0.98] tracking-tight text-[#F4F1EA]">
@@ -661,7 +699,8 @@
         <span class="font-serif italic font-normal text-[3.75rem] sm:text-8xl md:text-[6.4rem] ml-2">Empathy</span>
       </h1>
 
-      <p class="hero-intro hero-intro-delay mt-6 text-xs sm:text-sm text-zinc-300/90 max-w-md mx-auto leading-relaxed font-normal tracking-wide">
+      <p
+        class="hero-intro hero-intro-delay mt-6 text-xs sm:text-sm text-zinc-300/90 max-w-md mx-auto leading-relaxed font-normal tracking-wide">
         Software Engineer and AI Researcher crafting digital artifacts that feel alive. High-performance code meets
         expressive design.
       </p>
@@ -688,7 +727,8 @@
       <!-- System 1: Python Decision Engine -->
       <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
-          <div class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+          <div
+            class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
             <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
@@ -738,7 +778,8 @@
       <!-- System 2: C++ CLI Compute Engine -->
       <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
-          <div class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+          <div
+            class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
             <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
@@ -751,7 +792,8 @@
               <p><span class="text-emerald-400">~/precision-calc</span> ./calculator</p>
               <p class="text-zinc-400">[OK] Arithmetic parser initialized</p>
               <p class="text-zinc-400">[OK] Operator modules loaded</p>
-              <p class="pt-1"><span class="text-[#FF5E7E]">calc</span> <span class="text-zinc-100">&gt;</span> 1875 * 24</p>
+              <p class="pt-1"><span class="text-[#FF5E7E]">calc</span> <span class="text-zinc-100">&gt;</span> 1875 * 24
+              </p>
               <p class="text-zinc-400">Parsing expression...</p>
               <p class="flex items-center gap-1 pt-1 text-emerald-400">
                 <span>Result: 45000</span>
@@ -803,10 +845,10 @@
       <div
         class="reveal-on-scroll md:col-span-7 bg-[#F4F1EA] text-[#0B0C0E] rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
         <div class="flex items-center justify-between mb-6">
-            <span class="font-mono text-[11px] uppercase tracking-widest text-zinc-500">THE PHILOSOPHY</span>
-            <span
-              class="bg-[#10B981] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">CS @
-              UT Dallas</span>
+          <span class="font-mono text-[11px] uppercase tracking-widest text-zinc-500">THE PHILOSOPHY</span>
+          <span class="bg-[#10B981] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">CS
+            @
+            UT Dallas</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_144px] items-center gap-6">
           <div>
@@ -814,12 +856,15 @@
               Engineering with <span class="font-serif italic font-normal text-4xl">Intent.</span>
             </h3>
             <p class="text-sm sm:text-base text-zinc-700 leading-relaxed">
-              I view software not just as rigid logic, but as a puzzle where figuring out the right approach is the prize.
-              Studying Computer Science at UT Dallas, building foundations in C++, Python, and Machine Learning to create
+              I view software not just as rigid logic, but as a puzzle where figuring out the right approach is the
+              prize.
+              Studying Computer Science at UT Dallas, building foundations in C++, Python, and Machine Learning to
+              create
               intelligent, responsive tools.
             </p>
           </div>
-          <figure class="mx-auto h-36 w-36 overflow-hidden rounded-2xl border-2 border-white/80 shadow-[0_12px_30px_rgba(11,9,20,0.2)] ring-1 ring-[#FF5E7E]/35 md:mx-0">
+          <figure
+            class="mx-auto h-36 w-36 overflow-hidden rounded-2xl border-2 border-white/80 shadow-[0_12px_30px_rgba(11,9,20,0.2)] ring-1 ring-[#FF5E7E]/35 md:mx-0">
             <img src="assets/Profile_Picture.jpeg" alt="Karan Singh Rana, dressed in a suit"
               class="h-full w-full object-cover" style="object-position: center 24%;" loading="eager">
           </figure>
@@ -840,7 +885,8 @@
           <span class="font-mono text-[11px] uppercase tracking-widest text-[#FF5E7E]">THE GARAGE</span>
           <h3 class="text-2xl font-bold mt-2 text-[#F4F1EA]">Automotive Enthusiast</h3>
           <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
-            Aside from programming, I'm a big car enthusiast. I spend my time tuning, modifying, detailing and enjoying the automotive world.
+            Aside from programming, I'm a big car enthusiast. I spend my time tuning, modifying, detailing and enjoying
+            the automotive world.
           </p>
         </div>
         <div class="mt-6 pt-4 border-t border-white/10 space-y-2 font-mono text-xs">
@@ -852,9 +898,10 @@
             <span class="text-zinc-500">Progress to getting it</span>
           </div>
           <div class="h-2 overflow-hidden rounded-full bg-white/10 shadow-inner" role="progressbar"
-            aria-label="Progress toward getting the dream car" aria-valuemin="0" aria-valuemax="100"
-            aria-valuenow="25">
-            <div class="garage-progress-fill relative h-full w-1/4 origin-left rounded-full bg-gradient-to-r from-[#FF4769] via-[#FF5E7E] to-[#8B5CF6] shadow-[0_0_12px_rgba(255,71,105,0.55)]"></div>
+            aria-label="Progress toward getting the dream car" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25">
+            <div
+              class="garage-progress-fill relative h-full w-1/4 origin-left rounded-full bg-gradient-to-r from-[#FF4769] via-[#FF5E7E] to-[#8B5CF6] shadow-[0_0_12px_rgba(255,71,105,0.55)]">
+            </div>
           </div>
         </div>
       </div>
@@ -873,7 +920,8 @@
         <div class="my-5">
           <h3 class="text-2xl font-bold text-[#F4F1EA]">Lofi Playlist</h3>
           <p class="text-sm text-zinc-400 mt-1">
-            My own personal lofi playlist with handpicked tracks for studying, video games, and to fuel late-night coding sessions.
+            My own personal lofi playlist with handpicked tracks for studying, video games, and to fuel late-night
+            coding sessions.
           </p>
         </div>
 
@@ -888,8 +936,8 @@
           </p>
           <p id="now-playing-artist" class="mt-1 text-xs text-zinc-400"></p>
         </div>
-        <a href="https://open.spotify.com/playlist/4eiqk4a7C6sx16xR2HFofJ?si=3ed3eac74fb246d3"
-          target="_blank" rel="noopener noreferrer"
+        <a href="https://open.spotify.com/playlist/4eiqk4a7C6sx16xR2HFofJ?si=3ed3eac74fb246d3" target="_blank"
+          rel="noopener noreferrer"
           class="mt-4 inline-flex w-fit items-center gap-2 font-mono text-[11px] font-semibold text-[#1DB954] transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1DB954]">
           Open full playlist <span aria-hidden="true">↗</span>
         </a>
@@ -908,7 +956,8 @@
         <figure class="relative aspect-[4/5] w-full shrink-0 overflow-hidden sm:aspect-auto sm:w-[38%]">
           <img src="assets/Car_pic1.PNG" alt="Close-up of a Porsche 911 Turbo S rear wing and wheel"
             class="absolute inset-0 h-full w-full object-cover object-center">
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0B0914]/45 via-transparent to-transparent sm:bg-gradient-to-l sm:from-transparent sm:via-transparent sm:to-[#0B0914]/35"
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-[#0B0914]/45 via-transparent to-transparent sm:bg-gradient-to-l sm:from-transparent sm:via-transparent sm:to-[#0B0914]/35"
             aria-hidden="true"></div>
         </figure>
       </div>
@@ -1050,10 +1099,10 @@
     revealElements.forEach((el) => observer.observe(el));
 
     const sectionLinks = document.querySelectorAll('[data-section-link]');
-    const navSections = [...document.querySelectorAll('#work, #about')];
+    const navSections = [...document.querySelectorAll('#work, #about, #contact')];
     function updateActiveSection() {
       const activationLine = window.innerHeight * 0.35;
-      const activeSection = navSections
+      const activeSection = window.scrollY <= 0 ? null : navSections
         .filter((section) => section.getBoundingClientRect().top <= activationLine)
         .pop();
 
