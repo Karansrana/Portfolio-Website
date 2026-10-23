@@ -1102,9 +1102,16 @@
     const navSections = [...document.querySelectorAll('#work, #about, #contact')];
     function updateActiveSection() {
       const activationLine = window.innerHeight * 0.35;
-      const activeSection = window.scrollY <= 0 ? null : navSections
-        .filter((section) => section.getBoundingClientRect().top <= activationLine)
-        .pop();
+      const contactSection = navSections[navSections.length - 1];
+      const contactBounds = contactSection.getBoundingClientRect();
+      const contactIsVisible = contactBounds.top < window.innerHeight && contactBounds.bottom > 0;
+      const activeSection = window.scrollY <= 0
+        ? null
+        : contactIsVisible
+          ? contactSection
+          : navSections
+            .filter((section) => section.getBoundingClientRect().top <= activationLine)
+            .pop();
 
       sectionLinks.forEach((link) => {
         const isActive = activeSection && link.hash === `#${activeSection.id}`;
