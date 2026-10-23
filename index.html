@@ -47,7 +47,8 @@
       background-color: #0B0914;
       background-image:
         radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.09) 0%, transparent 60%),
-        radial-gradient(circle at 15% 85%, rgba(255, 71, 105, 0.07) 0%, transparent 50%);
+        radial-gradient(circle at 15% 85%, rgba(255, 71, 105, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 85% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 45%);
       background-attachment: fixed;
       color: #F4F1EA;
       overflow-x: hidden;
@@ -369,38 +370,239 @@
       }
     }
 
-    /* Equalizer Waveforms */
-    @keyframes eqWave {
+    @keyframes garageProgressFill {
+      from {
+        transform: scaleX(0);
+      }
 
-      0%,
-      100% {
-        height: 4px;
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes garageProgressShimmer {
+      from {
+        transform: translateX(-120%);
+      }
+
+      to {
+        transform: translateX(420%);
+      }
+    }
+
+    .reveal-on-scroll.is-visible .garage-progress-fill {
+      animation: garageProgressFill 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .garage-progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      animation: garageProgressShimmer 2s ease-in-out 1.2s infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-on-scroll.is-visible .garage-progress-fill {
+        animation: none;
+        transform: scaleX(1);
+      }
+
+      .garage-progress-fill::after {
+        animation: none;
+      }
+    }
+
+    @keyframes nowPlayingWave {
+      0%, 100% {
+        height: 5px;
+        opacity: 0.55;
       }
 
       50% {
-        height: 20px;
+        height: 18px;
+        opacity: 1;
       }
     }
 
-    .eq-playing .bar-1 {
-      animation: eqWave 1.1s ease-in-out infinite;
+    .now-playing-bars span {
+      width: 3px;
+      height: 5px;
+      border-radius: 999px;
+      background: #1DB954;
+      animation: nowPlayingWave 0.9s ease-in-out infinite;
     }
 
-    .eq-playing .bar-2 {
-      animation: eqWave 0.8s ease-in-out infinite 0.2s;
+    .now-playing-bars span:nth-child(2) {
+      animation-delay: 0.15s;
     }
 
-    .eq-playing .bar-3 {
-      animation: eqWave 1.3s ease-in-out infinite 0.4s;
+    .now-playing-bars span:nth-child(3) {
+      animation-delay: 0.3s;
     }
 
-    .eq-playing .bar-4 {
-      animation: eqWave 0.9s ease-in-out infinite 0.1s;
+    .now-playing-bars span:nth-child(4) {
+      animation-delay: 0.45s;
     }
 
-    .eq-paused .bar {
-      height: 4px !important;
-      animation: none !important;
+    @media (prefers-reduced-motion: reduce) {
+      .now-playing-bars span {
+        animation: none;
+        height: 10px;
+        opacity: 1;
+      }
+    }
+
+    /* Scroll Reveal Transition Elements */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #scroll-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 60;
+      height: 2px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    #scroll-progress-fill {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #FF4769, #8B5CF6 55%, #10B981);
+      box-shadow: 0 0 12px rgba(255, 71, 105, 0.55);
+      transform: scaleX(0);
+      transform-origin: left center;
+      will-change: transform;
+    }
+
+    .section-nav-link {
+      position: relative;
+    }
+
+    .section-nav-link::after {
+      position: absolute;
+      right: 50%;
+      bottom: 5px;
+      left: 50%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #FF5E7E, #8B5CF6);
+      content: "";
+      opacity: 0;
+      transition: left 0.25s ease, right 0.25s ease, opacity 0.25s ease;
+    }
+
+    .section-nav-link.is-active {
+      background: rgba(255, 255, 255, 0.08);
+      color: #F4F1EA;
+    }
+
+    .section-nav-link.is-active::after {
+      right: 16px;
+      left: 16px;
+      opacity: 1;
+    }
+
+    .project-preview {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+
+    .project-preview:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 24px 55px -22px rgba(255, 71, 105, 0.3);
+    }
+
+    .project-preview-content {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-preview:hover .project-preview-content {
+      transform: scale(1.035);
+    }
+
+    .space-y-24 > .reveal-on-scroll:nth-child(1) {
+      transition-delay: 0.08s;
+    }
+
+    .space-y-24 > .reveal-on-scroll:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .grid > .reveal-on-scroll:nth-child(1) {
+      transition-delay: 0.08s;
+    }
+
+    .grid > .reveal-on-scroll:nth-child(2) {
+      transition-delay: 0.16s;
+    }
+
+    .grid > .reveal-on-scroll:nth-child(3) {
+      transition-delay: 0.24s;
+    }
+
+    .grid > .reveal-on-scroll:nth-child(4) {
+      transition-delay: 0.32s;
+    }
+
+    .hero-intro {
+      opacity: 0;
+      animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-intro-delay {
+      animation-delay: 0.18s;
+    }
+
+    @keyframes heroEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto !important;
+      }
+
+      .hero-intro {
+        opacity: 1;
+        animation: none;
+      }
+
+      .project-preview,
+      .project-preview-content,
+      .section-nav-link::after {
+        transition: none;
+      }
+
+      .project-preview:hover,
+      .project-preview:hover .project-preview-content {
+        transform: none;
+      }
+
+      .reveal-on-scroll,
+      .reveal-on-scroll.is-visible {
+        transition: none;
+        transition-delay: 0s;
+      }
     }
   </style>
 </head>
@@ -409,6 +611,10 @@
 
   <!-- ANALOG TEXTURE OVERLAY -->
   <div class="noise-overlay"></div>
+  <div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100"
+    aria-valuenow="0">
+    <span id="scroll-progress-fill"></span>
+  </div>
 
   <!-- AESTHETIC CUSTOM CURSOR -->
   <div id="cursor-dot"></div>
@@ -423,17 +629,19 @@
     </div>
   </div>
 
-  <!-- FLOATING PILL NAVBAR -->
+  <!-- FLOATING PILL NAVBAR WITH MAGNETIC HOVER -->
   <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
     <nav
-      class="bg-[#141519]/85 backdrop-blur-md border border-white/10 rounded-full pl-6 pr-2 py-1.5 flex items-center gap-7 shadow-2xl">
-      <a href="#work" class="text-xs font-semibold text-zinc-300 hover:text-white transition-colors">Work</a>
-      <a href="#about" class="text-xs font-semibold text-zinc-300 hover:text-white transition-colors">About</a>
-      <a href="#playground"
-        class="text-xs font-semibold text-zinc-300 hover:text-white transition-colors">Playground</a>
+      class="flex items-center gap-1 rounded-full border border-white/10 bg-[#0B0914]/75 p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      <a href="#work"
+        data-section-link
+        class="rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Projects</a>
+      <a href="#about"
+        data-section-link
+        class="rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Identity</a>
       <a href="#contact"
-        class="bg-[#10B981] hover:bg-[#0ea572] text-black font-bold text-[11px] px-3.5 py-1.5 rounded-full flex items-center gap-1.5 transition-transform active:scale-95 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-        <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
+        class="magnetic-btn ml-1 flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[11px] font-bold text-black shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all hover:bg-[#34D399] hover:shadow-[0_0_28px_rgba(16,185,129,0.65)] active:scale-95">
+        <span class="h-1.5 w-1.5 rounded-full bg-black shadow-[0_0_8px_2px_rgba(16,185,129,0.9)]"></span>
         Connect with me
       </a>
     </nav>
@@ -442,7 +650,10 @@
   <!-- 1. HERO SECTION -->
   <section class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 select-none">
     <div class="text-center max-w-5xl mx-auto mt-6">
-      <h1 class="text-[3.25rem] sm:text-7xl md:text-[5.75rem] leading-[0.98] tracking-tight text-[#F4F1EA]">
+      <p class="hero-intro mb-5 inline-block rounded-full border border-[#FF5E7E]/40 bg-[#0B0914]/75 px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-[#FF8AA0] shadow-[0_0_20px_rgba(11,9,20,0.7)] backdrop-blur-md">
+        Karan Singh Rana
+      </p>
+      <h1 class="hero-intro text-[3.25rem] sm:text-7xl md:text-[5.75rem] leading-[0.98] tracking-tight text-[#F4F1EA]">
         <span class="font-extrabold uppercase tracking-[-0.03em]">HACKING</span>
         <span class="font-serif italic font-normal text-[3.75rem] sm:text-8xl md:text-[6.4rem] ml-2">Intelligence</span>
         <br />
@@ -450,7 +661,7 @@
         <span class="font-serif italic font-normal text-[3.75rem] sm:text-8xl md:text-[6.4rem] ml-2">Empathy</span>
       </h1>
 
-      <p class="mt-6 text-xs sm:text-sm text-zinc-300/90 max-w-md mx-auto leading-relaxed font-normal tracking-wide">
+      <p class="hero-intro hero-intro-delay mt-6 text-xs sm:text-sm text-zinc-300/90 max-w-md mx-auto leading-relaxed font-normal tracking-wide">
         Software Engineer and AI Researcher crafting digital artifacts that feel alive. High-performance code meets
         expressive design.
       </p>
@@ -465,9 +676,9 @@
 
   <!-- 2. SELECTED SYSTEMS -->
   <section id="work" class="relative z-10 max-w-5xl mx-auto px-6 py-28">
-    <div class="flex items-baseline justify-between mb-14 border-b border-white/10 pb-4">
+    <div class="reveal-on-scroll flex items-baseline justify-between mb-14 border-b border-white/10 pb-4">
       <h2 class="font-serif italic font-bold text-4xl sm:text-5xl text-[#F4F1EA] tracking-tight">
-        Selected Systems
+        Projects
       </h2>
       <span class="font-mono text-xs text-zinc-500">2025 — 2026</span>
     </div>
@@ -475,9 +686,9 @@
     <div class="space-y-24">
 
       <!-- System 1: Python Decision Engine -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-        <div class="md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
-          <div class="bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+      <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
+          <div class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
             <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
@@ -502,7 +713,7 @@
 
         <div class="md:col-span-6 space-y-4">
           <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-[#FF5E7E] block">
-            DECISION ARCHITECTURES
+            DECISION BASED GAME
           </span>
           <h3 class="text-3xl sm:text-4xl font-extrabold text-[#F4F1EA] tracking-tight">
             Interactive Decision <span class="font-serif italic font-normal text-4xl sm:text-5xl">Engine</span>
@@ -513,11 +724,11 @@
           </p>
           <div class="pt-2 flex items-center gap-6 text-xs font-semibold">
             <a href="https://onlinegdb.com/5fzOAJwf8" target="_blank"
-              class="text-[#FF5E7E] hover:text-white transition-colors flex items-center gap-1">
-              View Protocol <span>→</span>
+              class="magnetic-btn text-[#FF5E7E] hover:text-white transition-colors flex items-center gap-1">
+              Live Demo <span>→</span>
             </a>
             <a href="https://github.com/Karansrana/Rock-Paper-Scissors-project" target="_blank"
-              class="text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
+              class="magnetic-btn text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
               Source Code <span>↗</span>
             </a>
           </div>
@@ -525,21 +736,27 @@
       </div>
 
       <!-- System 2: C++ CLI Compute Engine -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-        <div class="md:col-span-6 spotlight-card p-8 h-[280px] flex items-center justify-center border border-white/5">
-          <div class="relative flex items-center justify-center">
-            <!-- Counter-rotating orbit rings -->
-            <div
-              class="absolute -top-6 -left-6 w-28 h-28 rounded-full border border-dashed border-[#FF5E7E]/30 animate-spin"
-              style="animation-duration: 20s;"></div>
-            <div
-              class="absolute -bottom-4 -right-4 w-20 h-20 rounded-full border border-dotted border-white/20 animate-spin"
-              style="animation-duration: 12s; animation-direction: reverse;"></div>
-
-            <div
-              class="w-28 h-28 rounded-full bg-gradient-to-b from-white/10 to-transparent border border-white/15 flex flex-col items-center justify-center shadow-2xl backdrop-blur-md">
-              <span class="font-mono text-xs font-bold tracking-[0.2em] text-white uppercase">C++ CLI</span>
-              <span class="font-mono text-[9px] text-[#FF5E7E] mt-0.5">0.02ms</span>
+      <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
+          <div class="project-preview-content bg-[#050507] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+            <div class="bg-[#16171B] px-3.5 py-2.5 flex items-center justify-between border-b border-white/5">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#27C93F]"></span>
+              </div>
+              <span class="text-[10px] font-mono text-zinc-500">calculator.cpp</span>
+            </div>
+            <div class="p-5 font-mono text-[11px] sm:text-xs leading-relaxed text-zinc-300 space-y-1.5">
+              <p><span class="text-emerald-400">~/precision-calc</span> ./calculator</p>
+              <p class="text-zinc-400">[OK] Arithmetic parser initialized</p>
+              <p class="text-zinc-400">[OK] Operator modules loaded</p>
+              <p class="pt-1"><span class="text-[#FF5E7E]">calc</span> <span class="text-zinc-100">&gt;</span> 1875 * 24</p>
+              <p class="text-zinc-400">Parsing expression...</p>
+              <p class="flex items-center gap-1 pt-1 text-emerald-400">
+                <span>Result: 45000</span>
+                <span class="cli-cursor"></span>
+              </p>
             </div>
           </div>
         </div>
@@ -557,11 +774,11 @@
           </p>
           <div class="pt-2 flex items-center gap-6 text-xs font-semibold">
             <a href="https://github.com/Karansrana/calculator" target="_blank"
-              class="text-[#FF5E7E] hover:text-white transition-colors flex items-center gap-1">
+              class="magnetic-btn text-[#FF5E7E] hover:text-white transition-colors flex items-center gap-1">
               Explore Repository <span>→</span>
             </a>
             <a href="https://onlinegdb.com/M_FeHSeFj" target="_blank"
-              class="text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
+              class="magnetic-btn text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
               Live Demo <span>↗</span>
             </a>
           </div>
@@ -573,7 +790,7 @@
 
   <!-- 3. ABOUT ME & OFF-SCREEN BENTO GRID -->
   <section id="about" class="relative z-10 max-w-5xl mx-auto px-6 py-24">
-    <div class="mb-12 border-b border-white/10 pb-4">
+    <div class="reveal-on-scroll mb-12 border-b border-white/10 pb-4">
       <span class="font-mono text-[10px] text-[#10B981] tracking-[0.2em] uppercase block">02 // UNDER THE HOOD</span>
       <h2 class="font-serif italic font-bold text-4xl sm:text-5xl text-[#F4F1EA] mt-1">
         Architecture & Identity
@@ -584,22 +801,28 @@
 
       <!-- Card 1: Editorial Philosophy -->
       <div
-        class="md:col-span-7 bg-[#F4F1EA] text-[#0B0C0E] rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-        <div>
-          <div class="flex items-center justify-between mb-6">
+        class="reveal-on-scroll md:col-span-7 bg-[#F4F1EA] text-[#0B0C0E] rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+        <div class="flex items-center justify-between mb-6">
             <span class="font-mono text-[11px] uppercase tracking-widest text-zinc-500">THE PHILOSOPHY</span>
             <span
               class="bg-[#10B981] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">CS @
               UT Dallas</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_144px] items-center gap-6">
+          <div>
+            <h3 class="text-3xl font-extrabold tracking-tight mb-4">
+              Engineering with <span class="font-serif italic font-normal text-4xl">Intent.</span>
+            </h3>
+            <p class="text-sm sm:text-base text-zinc-700 leading-relaxed">
+              I view software not just as rigid logic, but as a puzzle where figuring out the right approach is the prize.
+              Studying Computer Science at UT Dallas, building foundations in C++, Python, and Machine Learning to create
+              intelligent, responsive tools.
+            </p>
           </div>
-          <h3 class="text-3xl font-extrabold tracking-tight mb-4">
-            Engineering with <span class="font-serif italic font-normal text-4xl">Intent.</span>
-          </h3>
-          <p class="text-sm sm:text-base text-zinc-700 leading-relaxed">
-            I view software not just as rigid logic, but as a craft where systems precision meets human intuition.
-            Studying Computer Science at UT Dallas, building foundations in C++, Python, and Machine Learning to create
-            intelligent, responsive tools.
-          </p>
+          <figure class="mx-auto h-36 w-36 overflow-hidden rounded-2xl border-2 border-white/80 shadow-[0_12px_30px_rgba(11,9,20,0.2)] ring-1 ring-[#FF5E7E]/35 md:mx-0">
+            <img src="assets/Profile_Picture.jpeg" alt="Karan Singh Rana, dressed in a suit"
+              class="h-full w-full object-cover" style="object-position: center 24%;" loading="eager">
+          </figure>
         </div>
         <div class="mt-8 pt-4 border-t border-black/10 flex flex-wrap gap-3 font-mono text-xs text-zinc-600">
           <span>• ACM Mentee</span>
@@ -610,87 +833,91 @@
 
       <!-- Card 2: The Garage -->
       <div
-        class="md:col-span-5 spotlight-card p-8 flex flex-col justify-between border border-white/5 relative overflow-hidden">
+        class="reveal-on-scroll md:col-span-5 spotlight-card p-8 flex flex-col justify-between border border-white/5 relative overflow-hidden">
         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4769] via-[#FF5E7E] to-transparent">
         </div>
         <div>
           <span class="font-mono text-[11px] uppercase tracking-widest text-[#FF5E7E]">THE GARAGE</span>
-          <h3 class="text-2xl font-bold mt-2 text-[#F4F1EA]">Analog Performance</h3>
+          <h3 class="text-2xl font-bold mt-2 text-[#F4F1EA]">Automotive Enthusiast</h3>
           <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
-            Off the keyboard, I'm into automotive engineering, driving dynamics, and weekend detailing rituals.
+            Aside from programming, I'm a big car enthusiast. I spend my time tuning, modifying, detailing and enjoying the automotive world.
           </p>
         </div>
         <div class="mt-6 pt-4 border-t border-white/10 space-y-2 font-mono text-xs">
           <div class="flex justify-between">
-            <span class="text-zinc-500">DAILY DRIVER</span>
-            <span class="text-zinc-200">BMW X5 sDrive40i (xLine)</span>
+            <span class="text-zinc-500">DREAM CAR</span>
+            <span class="text-zinc-200">Porsche 911 Turbo S</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-zinc-500">WEEKEND RITUAL</span>
-            <span class="text-emerald-400">Foam Cannon & Detailing</span>
+            <span class="text-zinc-500">Progress to getting it</span>
+          </div>
+          <div class="h-2 overflow-hidden rounded-full bg-white/10 shadow-inner" role="progressbar"
+            aria-label="Progress toward getting the dream car" aria-valuemin="0" aria-valuemax="100"
+            aria-valuenow="25">
+            <div class="garage-progress-fill relative h-full w-1/4 origin-left rounded-full bg-gradient-to-r from-[#FF4769] via-[#FF5E7E] to-[#8B5CF6] shadow-[0_0_12px_rgba(255,71,105,0.55)]"></div>
           </div>
         </div>
       </div>
 
-      <!-- Card 3: Interactive Soundtracks Widget -->
+      <!-- Card 3: Spotify Soundtracks Player -->
       <div id="playground"
-        class="md:col-span-5 spotlight-card p-8 flex flex-col justify-between border border-white/5 select-none">
+        class="reveal-on-scroll md:col-span-5 self-start spotlight-card p-8 flex flex-col justify-start border border-white/5">
         <div class="flex items-center justify-between">
           <span class="font-mono text-[11px] uppercase tracking-widest text-zinc-400">SOUNDTRACKS & KEYS</span>
-          <!-- Dynamic Equalizer -->
-          <div id="eq-container" class="flex items-end gap-1 h-6 eq-playing">
-            <span class="w-1 bg-[#FF5E7E] rounded-full bar bar-1"></span>
-            <span class="w-1 bg-[#FF5E7E] rounded-full bar bar-2"></span>
-            <span class="w-1 bg-[#FF5E7E] rounded-full bar bar-3"></span>
-            <span class="w-1 bg-[#FF5E7E] rounded-full bar bar-4"></span>
+          <div class="flex items-center gap-2 font-mono text-[10px] tracking-wider text-zinc-400">
+            <span class="h-1.5 w-1.5 rounded-full bg-[#1DB954] shadow-[0_0_8px_rgba(29,185,84,0.8)]"></span>
+            SPOTIFY
           </div>
         </div>
 
-        <div class="my-6">
-          <h3 class="text-2xl font-bold text-[#F4F1EA]">Melancholic Piano</h3>
+        <div class="my-5">
+          <h3 class="text-2xl font-bold text-[#F4F1EA]">Lofi Playlist</h3>
           <p class="text-sm text-zinc-400 mt-1">
-            Studying emotive instrumental scores from anime and video games to fuel late-night coding sessions.
+            My own personal lofi playlist with handpicked tracks for studying, video games, and to fuel late-night coding sessions.
           </p>
         </div>
 
-        <!-- Interactive Player Bar -->
-        <div id="audio-toggle"
-          class="bg-[#0B0C0E]/90 hover:bg-[#121318] border border-white/10 rounded-xl p-3 flex items-center justify-between font-mono text-xs transition-colors cursor-pointer">
-          <div class="flex items-center gap-2.5 truncate">
-            <span id="play-icon" class="text-[#FF5E7E] text-sm leading-none">⏸</span>
-            <span class="text-zinc-300 truncate text-[11px]">Joe Hisaishi — One Summer's Day</span>
+        <div class="mt-2 rounded-xl border border-white/5 bg-[#0B0C0E]/75 p-4">
+          <div class="flex items-center justify-between gap-4">
+            <span class="font-mono text-[10px] tracking-[0.18em] text-[#1DB954]">NOW PLAYING</span>
+            <div class="now-playing-bars flex h-5 items-end gap-1" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
           </div>
-          <span id="track-status" class="text-[#10B981] text-[10px] font-bold">PLAYING</span>
+          <p id="now-playing-track" class="mt-3 text-lg font-semibold leading-snug text-[#F4F1EA]" aria-live="polite">
+          </p>
+          <p id="now-playing-artist" class="mt-1 text-xs text-zinc-400"></p>
         </div>
+        <a href="https://open.spotify.com/playlist/4eiqk4a7C6sx16xR2HFofJ?si=3ed3eac74fb246d3"
+          target="_blank" rel="noopener noreferrer"
+          class="mt-4 inline-flex w-fit items-center gap-2 font-mono text-[11px] font-semibold text-[#1DB954] transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1DB954]">
+          Open full playlist <span aria-hidden="true">↗</span>
+        </a>
       </div>
 
-      <!-- Card 4: Daily Routine -->
-      <div class="md:col-span-7 spotlight-card p-8 flex flex-col justify-between border border-white/5">
-        <div>
-          <span class="font-mono text-[11px] uppercase tracking-widest text-zinc-400">DAILY TELEMETRY</span>
-          <h3 class="text-2xl font-bold mt-2 text-[#F4F1EA]">High-Consistency Split</h3>
-          <p class="text-sm text-zinc-400 mt-1">
-            Balancing university coursework, algorithm design, and physical training.
+      <!-- Card 4: Automotive Inspiration -->
+      <div
+        class="reveal-on-scroll md:col-span-7 spotlight-card flex flex-col sm:flex-row overflow-hidden border border-white/5">
+        <div class="flex flex-1 flex-col justify-center p-8">
+          <span class="font-mono text-[11px] uppercase tracking-widest text-[#FF5E7E]">THE DRIVE</span>
+          <h3 class="text-2xl font-bold mt-2 text-[#F4F1EA]">Porsche 911 Turbo S</h3>
+          <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
+            A little inspiration from the engineering and design that fuel my passion for cars.
           </p>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-4 border-t border-white/10 font-mono text-xs">
-          <div class="bg-[#0B0C0E]/80 border border-white/5 rounded-xl p-3.5">
-            <span class="text-zinc-500 block text-[10px]">TRAINING</span>
-            <span class="text-zinc-200 font-medium mt-1 block">Push / Pull / Legs Split</span>
-          </div>
-          <div class="bg-[#0B0C0E]/80 border border-white/5 rounded-xl p-3.5">
-            <span class="text-zinc-500 block text-[10px]">CURRENT FOCUS</span>
-            <span class="text-zinc-200 font-medium mt-1 block">Python ML & C++ Systems</span>
-          </div>
-        </div>
+        <figure class="relative aspect-[4/5] w-full shrink-0 overflow-hidden sm:aspect-auto sm:w-[38%]">
+          <img src="assets/Car_pic1.PNG" alt="Close-up of a Porsche 911 Turbo S rear wing and wheel"
+            class="absolute inset-0 h-full w-full object-cover object-center">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0B0914]/45 via-transparent to-transparent sm:bg-gradient-to-l sm:from-transparent sm:via-transparent sm:to-[#0B0914]/35"
+            aria-hidden="true"></div>
+        </figure>
       </div>
 
     </div>
   </section>
 
   <!-- 4. FOOTER / CONTACT CTA -->
-  <footer id="contact" class="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-24">
+  <footer id="contact" class="reveal-on-scroll relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-24">
     <div class="spotlight-card rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden border border-white/10">
       <div
         class="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[450px] h-[220px] bg-gradient-to-t from-[#FF4769]/25 to-transparent blur-[90px] pointer-events-none">
@@ -703,18 +930,22 @@
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4 relative z-10">
         <a href="https://github.com/Karansrana" target="_blank"
-          class="bg-[#F4F1EA] hover:bg-white text-black font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition-transform active:scale-95 shadow-lg">
+          class="magnetic-btn bg-[#F4F1EA] hover:bg-white text-black font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition-transform active:scale-95 shadow-lg">
           GitHub Profile ↗
         </a>
+        <a href="https://www.linkedin.com/in/karan-rana-436b21377/" target="_blank" rel="noopener noreferrer"
+          class="magnetic-btn bg-[#0A66C2]/15 hover:bg-[#0A66C2]/25 border border-[#0A66C2]/40 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-full transition-colors">
+          LinkedIn Profile ↗
+        </a>
         <a href="mailto:mailkaransrana@gmail.com"
-          class="bg-white/10 hover:bg-white/15 border border-white/15 text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-full transition-colors">
+          class="magnetic-btn bg-white/10 hover:bg-white/15 border border-white/15 text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-full transition-colors">
           Contact via Email
         </a>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPT ENGINE: CURSOR, SPOTLIGHTS, AUDIO WIDGET, ORB PARALLAX -->
+  <!-- SCRIPT ENGINE -->
   <script>
     // 1. DYNAMIC MOUSE SPOTLIGHT ON CARDS
     const cards = document.querySelectorAll('.spotlight-card');
@@ -728,7 +959,7 @@
       });
     }, { passive: true });
 
-    // 2. CUSTOM CURSOR WITH SPRING PHYSICS
+    // 2. CUSTOM CURSOR WITH SPRING PHYSICS & CLICK FEEDBACK
     const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
 
@@ -770,7 +1001,7 @@
     }
     renderCursor();
 
-    const hoverTargets = document.querySelectorAll('a, button, .spotlight-card, #audio-toggle');
+    const hoverTargets = document.querySelectorAll('a, button, .spotlight-card');
     hoverTargets.forEach((target) => {
       target.addEventListener('mouseenter', () => {
         ring.classList.add('cursor-hover');
@@ -788,37 +1019,142 @@
       cursorVisible = false;
     });
 
-    // 3. INTERACTIVE AUDIO EQUALIZER TOGGLE
-    const audioBtn = document.getElementById('audio-toggle');
-    const eq = document.getElementById('eq-container');
-    const playIcon = document.getElementById('play-icon');
-    const trackStatus = document.getElementById('track-status');
-    let isPlaying = true;
-
-    audioBtn.addEventListener('click', () => {
-      isPlaying = !isPlaying;
-      if (isPlaying) {
-        eq.className = 'flex items-end gap-1 h-6 eq-playing';
-        playIcon.textContent = '⏸';
-        trackStatus.textContent = 'PLAYING';
-        trackStatus.className = 'text-[#10B981] text-[10px] font-bold';
-      } else {
-        eq.className = 'flex items-end gap-1 h-6 eq-paused';
-        playIcon.textContent = '▶';
-        trackStatus.textContent = 'PAUSED';
-        trackStatus.className = 'text-zinc-500 text-[10px] font-bold';
-      }
+    // 3. MAGNETIC BUTTON REACTION
+    const magneticBtns = document.querySelectorAll('.magnetic-btn');
+    magneticBtns.forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - (rect.left + rect.width / 2);
+        const y = e.clientY - (rect.top + rect.height / 2);
+        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+        btn.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'none';
+      });
     });
 
-    // 4. SCROLL & FLUID ORB PARALLAX
+    // 4. SCROLL REVEAL OBSERVER
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealElements.forEach((el) => observer.observe(el));
+
+    const sectionLinks = document.querySelectorAll('[data-section-link]');
+    const navSections = [...document.querySelectorAll('#work, #about')];
+    function updateActiveSection() {
+      const activationLine = window.innerHeight * 0.35;
+      const activeSection = navSections
+        .filter((section) => section.getBoundingClientRect().top <= activationLine)
+        .pop();
+
+      sectionLinks.forEach((link) => {
+        const isActive = activeSection && link.hash === `#${activeSection.id}`;
+        link.classList.toggle('is-active', isActive);
+        if (isActive) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // 5. RANDOM TRACK FROM THE PLAYLIST
+    const playlistTracks = [
+      ["Cold", "kudo"],
+      ["Stargazing", "kyu"],
+      ["Lavender", "Kupla"],
+      ["dreamy night", "LilyPichu"],
+      ["Camden to Chinatown", "Loafy Building, Raimu"],
+      ["Better Days", "Purrple Cat"],
+      ["Spark", "kyu"],
+      ["Warm Nights", "A[way]"],
+      ["One Last Time", "Thaehan"],
+      ["Parallel Worlds", "Osaki, Purrple Cat"],
+      ["Snooze Button", "Purrple Cat"],
+      ["Midnight Thoughts", "Yasumu"],
+      ["Fade Away", "cxlt."],
+      ["Dandelion's Lullaby", "Raimu"],
+      ["Destination Unknown", "amies"],
+      ["hope", "Bcalm, Purrple Cat"],
+      ["Gravity Falls", "L.Dre"],
+      ["Moonlit Walk", "Purrple Cat"],
+      ["Until The Morning Comes", "softy, no one's perfect"],
+      ["To Be Continued..", "Raimu"],
+      ["Wings", "Casiio, Sleepermane"],
+      ["Frontseat", "Casiio, Dontcry"],
+      ["Space 420", "Chau Sara"],
+      ["Fever", "Psalm Trees"],
+      ["Koshi", "Living Room, Otaam"],
+      ["Cipher", "LEMMiNO"],
+      ["School Rooftop", "Hisohkah, WMD"],
+      ["the quest", "Hevi, Delayde"],
+      ["Lost and Found", "Mondo Loops, Aiguille"],
+      ["The Secret Road", "DaniSogen"],
+      ["Take Your Swimsuit", "Tieff"],
+      ["Shadows", "Dosi"],
+      ["Yuzu", "Loafy Building, Living Room"],
+      ["southern cross", "stream_error"],
+      ["As The Sun Sets", "Laffey"],
+      ["Glistening", "Loafy Building"],
+      ["Apples", "Lofty, Pointy Features, Quist, Ximena"],
+      ["Cat's Cradle", "Purrple Cat"],
+      ["Arrival", "ticofaces, Mondo Loops"],
+      ["Down by the Lake", "TyLuv."],
+      ["Quiet as the Moon", "stream_error, nrg"],
+      ["Everything Gone", "Mujo, Sweet Medicine, Jhove"],
+      ["Defensive", "xander., Philip Somber"],
+      ["Exoplanet", "Purrple Cat"],
+      ["Unexplored", "Casiio, Sleepermane"],
+      ["Pandora", "Casiio, Sleepermane"],
+      ["From Here", "CloudNone"],
+      ["Out There", "Purrple Cat"],
+      ["Reflection", "brillion."],
+      ["Sunday Morning", "BVG, møndberg, Spencer Hunt"],
+      ["The Bad Party", "WYS"],
+      ["Patience", "Arbour"],
+      ["The Dawn", "Nothingtosay"],
+      ["Down The Port", "Miramare, smbdy/else"],
+      ["Lost", "Nothingtosay"],
+      ["Shrine", "ticofaces, Loafy Building, Socrab"],
+      ["Night Drive", "Elijah Lee"],
+      ["Daydream", "kyu"],
+      ["Through The Clouds", "No Spirit"],
+      ["Kugelblitz", "Purrple Cat"]
+    ];
+    const [trackTitle, trackArtist] = playlistTracks[Math.floor(Math.random() * playlistTracks.length)];
+    document.getElementById('now-playing-track').textContent = trackTitle;
+    document.getElementById('now-playing-artist').textContent = trackArtist;
+
+    // 6. SCROLL & FLUID ORB PARALLAX
     const orbWrapper = document.getElementById('orb-wrapper');
+    const scrollProgressBar = document.getElementById('scroll-progress');
+    const scrollProgressFill = document.getElementById('scroll-progress-fill');
     let scrollProgress = 0;
     let orbParallaxX = 0;
     let orbParallaxY = 0;
     let currentOrbX = 0;
     let currentOrbY = 0;
 
+    function updateScrollProgress() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
+      scrollProgressFill.style.transform = `scaleX(${progress})`;
+      scrollProgressBar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+    }
+
     window.addEventListener('scroll', () => {
+      updateScrollProgress();
+      updateActiveSection();
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
       scrollProgress = Math.min(scrollY / (vh * 0.7), 1);
@@ -829,6 +1165,12 @@
       orbWrapper.style.opacity = opacity;
       orbWrapper.style.filter = `brightness(${brightness})`;
     }, { passive: true });
+    window.addEventListener('resize', () => {
+      updateScrollProgress();
+      updateActiveSection();
+    }, { passive: true });
+    updateScrollProgress();
+    updateActiveSection();
 
     window.addEventListener('mousemove', (e) => {
       orbParallaxX = (e.clientX / window.innerWidth - 0.5) * 28;
