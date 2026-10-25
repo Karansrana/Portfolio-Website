@@ -225,6 +225,19 @@
       }
     }
 
+    @media (max-width: 640px) and (hover: none) {
+      #orb-wrapper {
+        transition: opacity 0.2s ease-out;
+        will-change: opacity, transform;
+      }
+
+      .hero-orb {
+        border-radius: 50%;
+        animation: floatBob 5s ease-in-out infinite alternate;
+        will-change: transform;
+      }
+    }
+
     @keyframes liquidMorph {
 
       0%,
@@ -1282,6 +1295,7 @@
 
     // 6. SCROLL & FLUID ORB PARALLAX
     const orbWrapper = document.getElementById('orb-wrapper');
+    const supportsOrbBrightness = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const scrollProgressBar = document.getElementById('scroll-progress');
     const scrollProgressFill = document.getElementById('scroll-progress-fill');
     let scrollProgress = 0;
@@ -1308,7 +1322,9 @@
       const brightness = 1 - (scrollProgress * 0.45);
 
       orbWrapper.style.opacity = opacity;
-      orbWrapper.style.filter = `brightness(${brightness})`;
+      if (supportsOrbBrightness) {
+        orbWrapper.style.filter = `brightness(${brightness})`;
+      }
     }, { passive: true });
     window.addEventListener('resize', () => {
       updateScrollProgress();
