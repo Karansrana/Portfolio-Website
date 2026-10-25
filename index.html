@@ -77,6 +77,7 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate3d(-50%, -50%, 0);
+      opacity: 0;
       transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
       will-change: transform;
     }
@@ -94,11 +95,19 @@
       pointer-events: none;
       z-index: 9998;
       transform: translate3d(-50%, -50%, 0);
+      opacity: 0;
       transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
         height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.2s ease,
         background-color 0.2s ease;
       will-change: transform;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      #cursor-dot,
+      #cursor-ring {
+        display: none;
+      }
     }
 
     #cursor-ring.cursor-hover {
@@ -504,7 +513,7 @@
       animation: connectNavGlow 1.8s ease-in-out infinite;
     }
 
-    .connect-nav-link.is-active>span {
+    .connect-nav-link.is-active .connect-nav-indicator {
       animation: connectNavPulse 1s ease-in-out infinite;
     }
 
@@ -608,7 +617,7 @@
       .project-preview-content,
       .section-nav-link::after,
       .connect-nav-link.is-active,
-      .connect-nav-link.is-active>span {
+      .connect-nav-link.is-active .connect-nav-indicator {
         transition: none;
         animation: none;
       }
@@ -650,19 +659,20 @@
   </div>
 
   <!-- FLOATING PILL NAVBAR WITH MAGNETIC HOVER -->
-  <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+  <header class="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50">
     <nav
-      class="flex items-center gap-1 rounded-full border border-white/10 bg-[#0B0914]/75 p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      class="flex items-center gap-2 rounded-full border border-white/10 bg-[#0B0914]/75 p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:gap-1">
       <a href="#top" aria-label="Back to top"
-        class="ml-0.5 flex h-9 w-9 items-center justify-center rounded-full border border-[#FF5E7E]/25 bg-gradient-to-br from-[#FF5E7E]/20 via-[#8B5CF6]/15 to-transparent font-sans text-sm font-extrabold tracking-tight text-[#F4F1EA] shadow-[inset_0_0_12px_rgba(255,94,126,0.12)] transition-all hover:border-[#FF5E7E]/50 hover:shadow-[0_0_18px_rgba(255,71,105,0.25)]">KS</a>
+        class="ml-0.5 flex h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full border border-[#FF5E7E]/25 bg-gradient-to-br from-[#FF5E7E]/20 via-[#8B5CF6]/15 to-transparent font-sans text-sm font-extrabold tracking-tight text-[#F4F1EA] shadow-[inset_0_0_12px_rgba(255,94,126,0.12)] transition-all hover:border-[#FF5E7E]/50 hover:shadow-[0_0_18px_rgba(255,71,105,0.25)] md:h-9 md:w-9 md:min-w-0">KS</a>
       <a href="#work" data-section-link
-        class="section-nav-link rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Projects</a>
+        class="section-nav-link inline-flex min-h-11 items-center rounded-full px-2 text-[11px] font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4 sm:text-xs">Projects</a>
       <a href="#about" data-section-link
-        class="section-nav-link rounded-full px-3.5 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4">Identity</a>
+        class="section-nav-link inline-flex min-h-11 items-center rounded-full px-2 text-[11px] font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:px-4 sm:text-xs">Identity</a>
       <a href="#contact" data-section-link
-        class="connect-nav-link magnetic-btn ml-1 flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[11px] font-bold text-black shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all hover:bg-[#34D399] hover:shadow-[0_0_28px_rgba(16,185,129,0.65)] active:scale-95">
-        <span class="h-1.5 w-1.5 rounded-full bg-black shadow-[0_0_8px_2px_rgba(16,185,129,0.9)]"></span>
-        Connect with me
+        class="connect-nav-link magnetic-btn ml-1 flex min-h-11 items-center gap-1.5 rounded-full bg-[#10B981] px-2 py-2 text-[9px] font-bold text-black shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all hover:bg-[#34D399] hover:shadow-[0_0_28px_rgba(16,185,129,0.65)] active:scale-95 sm:gap-2 sm:px-4 sm:text-[11px]">
+        <span class="connect-nav-indicator h-1.5 w-1.5 rounded-full bg-black shadow-[0_0_8px_2px_rgba(16,185,129,0.9)]" aria-hidden="true"></span>
+        <span class="sm:hidden">Connect</span>
+        <span class="hidden sm:inline">Connect with me</span>
       </a>
     </nav>
   </header>
@@ -674,12 +684,12 @@
         class="hero-intro mb-5 inline-block rounded-full border border-[#FF5E7E]/40 bg-[#0B0914]/75 px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-[#FF8AA0] shadow-[0_0_20px_rgba(11,9,20,0.7)] backdrop-blur-md">
         Karan Singh Rana
       </p>
-      <h1 class="hero-intro text-[3.25rem] sm:text-7xl md:text-[5.75rem] leading-[0.98] tracking-tight text-[#F4F1EA]">
+      <h1 class="hero-intro text-[clamp(2.25rem,11vw,3.25rem)] sm:text-7xl md:text-[5.75rem] leading-[0.98] tracking-tight text-[#F4F1EA]">
         <span class="font-extrabold uppercase tracking-[-0.03em]">HACKING</span>
-        <span class="font-sans font-semibold text-[3.75rem] sm:text-8xl md:text-[6.4rem] ml-2">Intelligence</span>
+        <span class="inline-block mb-5 font-sans font-semibold text-[clamp(2.25rem,12vw,3.75rem)] sm:mb-0 sm:inline sm:text-8xl md:text-[6.4rem] ml-1 sm:ml-2">Intelligence</span>
         <br />
         <span class="font-extrabold uppercase tracking-[-0.03em]">BUILDING</span>
-        <span class="font-sans font-semibold text-[3.75rem] sm:text-8xl md:text-[6.4rem] ml-2">Empathy</span>
+        <span class="font-sans font-semibold text-[clamp(2.25rem,12vw,3.75rem)] sm:text-8xl md:text-[6.4rem] ml-1 sm:ml-2">Empathy</span>
       </h1>
 
       <p
@@ -1054,82 +1064,86 @@
     }, { passive: true });
 
     // 2. CUSTOM CURSOR WITH SPRING PHYSICS & CLICK FEEDBACK
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
 
-    document.addEventListener('pointerdown', () => {
-      ring.classList.add('cursor-click');
-    });
-    window.addEventListener('pointerup', () => {
-      ring.classList.remove('cursor-click');
-    });
-    window.addEventListener('pointercancel', () => {
-      ring.classList.remove('cursor-click');
-    });
+      document.addEventListener('pointerdown', () => {
+        ring.classList.add('cursor-click');
+      });
+      window.addEventListener('pointerup', () => {
+        ring.classList.remove('cursor-click');
+      });
+      window.addEventListener('pointercancel', () => {
+        ring.classList.remove('cursor-click');
+      });
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let ringX = mouseX;
-    let ringY = mouseY;
-    let cursorVisible = false;
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+      let cursorVisible = false;
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
-      if (!cursorVisible) {
-        dot.style.opacity = '1';
-        ring.style.opacity = '1';
-        cursorVisible = true;
+        if (!cursorVisible) {
+          dot.style.opacity = '1';
+          ring.style.opacity = '1';
+          cursorVisible = true;
+        }
+
+        dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate3d(-50%, -50%, 0)`;
+      }, { passive: true });
+
+      function renderCursor() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+
+        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0)`;
+        requestAnimationFrame(renderCursor);
       }
+      renderCursor();
 
-      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate3d(-50%, -50%, 0)`;
-    }, { passive: true });
+      const hoverTargets = document.querySelectorAll('a, button, .spotlight-card');
+      hoverTargets.forEach((target) => {
+        target.addEventListener('mouseenter', () => {
+          ring.classList.add('cursor-hover');
+          dot.classList.add('cursor-hover');
+        });
+        target.addEventListener('mouseleave', () => {
+          ring.classList.remove('cursor-hover');
+          dot.classList.remove('cursor-hover');
+        });
+      });
 
-    function renderCursor() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-
-      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0)`;
-      requestAnimationFrame(renderCursor);
+      document.addEventListener('mouseleave', () => {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+        cursorVisible = false;
+      });
     }
-    renderCursor();
-
-    const hoverTargets = document.querySelectorAll('a, button, .spotlight-card');
-    hoverTargets.forEach((target) => {
-      target.addEventListener('mouseenter', () => {
-        ring.classList.add('cursor-hover');
-        dot.classList.add('cursor-hover');
-      });
-      target.addEventListener('mouseleave', () => {
-        ring.classList.remove('cursor-hover');
-        dot.classList.remove('cursor-hover');
-      });
-    });
-
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
-      cursorVisible = false;
-    });
 
     // 3. MAGNETIC BUTTON REACTION
     const magneticBtns = document.querySelectorAll('.magnetic-btn');
-    magneticBtns.forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - (rect.left + rect.width / 2);
-        const y = e.clientY - (rect.top + rect.height / 2);
-        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      magneticBtns.forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - (rect.left + rect.width / 2);
+          const y = e.clientY - (rect.top + rect.height / 2);
+          btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0px, 0px)';
+          btn.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transition = 'none';
+        });
       });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'translate(0px, 0px)';
-        btn.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
-      });
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'none';
-      });
-    });
+    }
 
     // 4. SCROLL REVEAL OBSERVER
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
