@@ -730,26 +730,25 @@
 
     <div class="space-y-24">
 
-      <!-- System 1: Python Decision Engine -->
+      <!-- System 1: ForeShock -->
       <div class="reveal-on-scroll grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div class="project-preview md:col-span-6 spotlight-card p-6 sm:p-7 border border-white/5">
           <div
             class="project-preview-content bg-[#080710] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
             <svg class="block w-full" viewBox="0 0 560 280" role="img"
-              aria-labelledby="rps-art-title rps-art-description">
-              <title id="rps-art-title">Rock-paper-scissors decision loop</title>
-              <desc id="rps-art-description">A glowing pink path shows rock defeating scissors in a three-move decision
-                loop.</desc>
+              aria-labelledby="foreshock-art-title foreshock-art-description">
+              <title id="foreshock-art-title">ForeShock emergency triage map</title>
+              <desc id="foreshock-art-description">A live disaster-response map with urgency markers, AI triage summary, and emergency beacon alerts.</desc>
               <defs>
-                <pattern id="rps-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                <pattern id="foreshock-grid" width="28" height="28" patternUnits="userSpaceOnUse">
                   <path d="M28 0H0V28" fill="none" stroke="#fff" stroke-opacity=".035" />
                 </pattern>
-                <linearGradient id="rps-path" x1="0" y1="1" x2="1" y2="0">
+                <linearGradient id="foreshock-line" x1="0" y1="0" x2="1" y2="1">
                   <stop stop-color="#FF4769" />
-                  <stop offset="1" stop-color="#B66BFF" />
+                  <stop offset="1" stop-color="#8B5CF6" />
                 </linearGradient>
-                <filter id="rps-glow" x="-100%" y="-100%" width="300%" height="300%">
-                  <feGaussianBlur stdDeviation="5" result="blur" />
+                <filter id="foreshock-glow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="7" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
@@ -757,71 +756,56 @@
                 </filter>
               </defs>
               <rect width="560" height="280" rx="12" fill="#0B0914" />
-              <rect width="560" height="280" rx="12" fill="url(#rps-grid)" />
-              <text x="30" y="34" fill="#A1A1AA" font-family="JetBrains Mono, monospace" font-size="10"
-                letter-spacing="2">DECISION LOOP</text>
+              <rect width="560" height="280" rx="12" fill="url(#foreshock-grid)" />
+              <path d="M70 204c36-26 65-55 96-82 26-22 55-31 84-27 38 5 61 30 109 35 41 4 80-7 128-42v120H70z" fill="#101827" fill-opacity=".65" stroke="#1F2937" />
+              <path d="M108 195c52-17 76-61 124-80 27-10 62-16 99 8 39 25 43 48 84 61" fill="none" stroke="url(#foreshock-line)" stroke-width="3" stroke-linecap="round" filter="url(#foreshock-glow)" />
+              <text x="30" y="34" fill="#A1A1AA" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">EMERGENCY MAP</text>
               <circle cx="490" cy="30" r="4" fill="#10B981" />
-              <text x="502" y="34" fill="#10B981" font-family="JetBrains Mono, monospace" font-size="9"
-                letter-spacing="1">READY</text>
+              <text x="502" y="34" fill="#10B981" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">LIVE</text>
 
-              <path d="M158 137C180 91 207 75 239 70" fill="none" stroke="url(#rps-path)" stroke-width="3"
-                filter="url(#rps-glow)" />
-              <path d="M319 70C351 75 379 92 401 137" fill="none" stroke="#8B5CF6" stroke-opacity=".42"
-                stroke-width="2" />
-              <path d="M401 171C340 231 220 231 159 171" fill="none" stroke="#8B5CF6" stroke-opacity=".42"
-                stroke-width="2" />
-              <path d="m231 68 10-7-1 12" fill="#FF8AA0" />
-              <path d="m156 180-2-12 10 6" fill="#8B5CF6" fill-opacity=".7" />
-              <path d="m404 132-3 12-8-8" fill="#8B5CF6" fill-opacity=".7" />
+              <g>
+                <circle cx="130" cy="162" r="11" fill="#FF5E7E" fill-opacity=".25" stroke="#FF5E7E" stroke-width="2" />
+                <circle cx="130" cy="162" r="5" fill="#FF5E7E" />
+              </g>
+              <g>
+                <circle cx="262" cy="118" r="11" fill="#F59E0B" fill-opacity=".25" stroke="#F59E0B" stroke-width="2" />
+                <circle cx="262" cy="118" r="5" fill="#F59E0B" />
+              </g>
+              <g>
+                <circle cx="392" cy="146" r="11" fill="#10B981" fill-opacity=".25" stroke="#10B981" stroke-width="2" />
+                <circle cx="392" cy="146" r="5" fill="#10B981" />
+              </g>
 
-              <circle cx="135" cy="155" r="34" fill="#17111E" stroke="#FF5E7E" stroke-opacity=".8" />
-              <path d="m118 161 7-14 10-6 12 7 5 13-8 8h-18z" fill="#FF8AA0" fill-opacity=".9" />
-              <path d="m125 147 8 4m8-1 6 7" stroke="#FFE4EA" stroke-opacity=".65" stroke-width="2"
-                stroke-linecap="round" />
-              <text x="135" y="213" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="12"
-                font-weight="700" text-anchor="middle">ROCK</text>
+              <rect x="25" y="202" width="155" height="46" rx="10" fill="#0F172A" fill-opacity=".75" stroke="#334155" />
+              <circle cx="45" cy="225" r="5" fill="#FF5E7E" />
+              <text x="60" y="220" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700">MEDICAL</text>
+              <text x="60" y="237" fill="#FCA5A5" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">SEV 9</text>
 
-              <circle cx="280" cy="66" r="34" fill="#17111E" stroke="#8B5CF6" stroke-opacity=".65" />
-              <circle cx="269" cy="57" r="6" fill="none" stroke="#D8B4FE" stroke-width="3" />
-              <circle cx="291" cy="57" r="6" fill="none" stroke="#D8B4FE" stroke-width="3" />
-              <path d="m273 61 18 19m-22-19-9 19" fill="none" stroke="#D8B4FE" stroke-linecap="round"
-                stroke-width="3" />
-              <text x="280" y="123" fill="#D4D4D8" font-family="Plus Jakarta Sans, sans-serif" font-size="12"
-                font-weight="700" text-anchor="middle">SCISSORS</text>
-
-              <circle cx="425" cy="155" r="34" fill="#17111E" stroke="#8B5CF6" stroke-opacity=".65" />
-              <path d="M414 140h17l8 8v23h-25z" fill="none" stroke="#D8B4FE" stroke-linejoin="round"
-                stroke-width="2.5" />
-              <path d="M431 140v9h8m-20 7h14m-14 6h14" stroke="#D8B4FE" stroke-linecap="round" stroke-width="2" />
-              <text x="425" y="213" fill="#D4D4D8" font-family="Plus Jakarta Sans, sans-serif" font-size="12"
-                font-weight="700" text-anchor="middle">PAPER</text>
-
-              <rect x="211" y="238" width="138" height="24" rx="12" fill="#FF4769" fill-opacity=".12" stroke="#FF5E7E"
-                stroke-opacity=".3" />
-              <circle cx="226" cy="250" r="3" fill="#FF5E7E" />
-              <text x="238" y="254" fill="#FF8AA0" font-family="JetBrains Mono, monospace" font-size="9"
-                letter-spacing="1">ROCK WINS</text>
+              <rect x="370" y="35" width="155" height="62" rx="10" fill="#0F172A" fill-opacity=".82" stroke="#334155" />
+              <text x="390" y="56" fill="#A1A1AA" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">AI TRIAGE</text>
+              <text x="390" y="79" fill="#F4F1EA" font-family="Plus Jakarta Sans, sans-serif" font-size="22" font-weight="800">"S.O.S."</text>
+              <text x="390" y="95" fill="#10B981" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1">RECOVERED</text>
             </svg>
           </div>
         </div>
 
         <div class="md:col-span-6 space-y-4">
           <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-[#FF5E7E] block">
-            DECISION BASED GAME
+            HACKATHON DEMO
           </span>
           <h3 class="text-3xl sm:text-4xl font-extrabold text-[#F4F1EA] tracking-tight">
-            Interactive Decision <span class="font-sans font-semibold text-[#FF8AA0] text-4xl sm:text-5xl">Engine</span>
+            ForeShock <span class="font-sans font-semibold text-[#FF8AA0] text-4xl sm:text-5xl">Disaster Triage</span>
           </h3>
           <p class="text-sm text-zinc-400 leading-relaxed max-w-md">
-            A real-time interactive Rock-Paper-Scissors system featuring randomized state generation, strict input
-            validation, and dynamic match scoring built in Python.
+            A responsive emergency-response prototype that turns Arduino button alerts or SMS reports into urgency-coded
+            markers on a live map. Built with AI triage, geospatial visualization, and real-time incident awareness.
           </p>
           <div class="pt-2 flex items-center gap-6 text-xs font-semibold">
-            <a href="https://onlinegdb.com/5fzOAJwf8" target="_blank"
+            <a href="https://foreshock.onrender.com/" target="_blank"
               class="magnetic-btn text-[#FF5E7E] hover:text-white transition-colors flex items-center gap-1">
               Live Demo <span>→</span>
             </a>
-            <a href="https://github.com/Karansrana/Rock-Paper-Scissors-project" target="_blank"
+            <a href="https://github.com/Karansrana/ForeShock" target="_blank"
               class="magnetic-btn text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
               Source Code <span>↗</span>
             </a>
